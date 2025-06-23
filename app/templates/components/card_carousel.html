@@ -1,0 +1,126 @@
+<!-- Card Carousel Component -->
+{% if certifications %}
+<div class="relative w-full overflow-hidden group">
+    <div class="swiper-container w-full max-w-full">
+        <div class="swiper-wrapper">
+            {% for item in certifications %}
+            <div class="swiper-slide">
+                <div class="bg-dark-card rounded-lg overflow-hidden shadow-lg h-full flex flex-col mx-2 transform transition-transform duration-300 hover:scale-105">
+                    <!-- Card Content -->
+                    <div class="p-6 flex-1 flex flex-col">
+                        {% if item.icon %}
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="{{ item.icon }}"></i>
+                        </div>
+                        {% endif %}
+                        
+                        <h3 class="text-xl font-semibold text-white mb-2">{{ item.title }}</h3>
+                        
+                        {% if item.subtitle %}
+                        <p class="text-gray-400 text-sm mb-4">{{ item.subtitle }}</p>
+                        {% endif %}
+                        
+                        {% if item.description %}
+                        <p class="text-gray-300 mb-4 flex-1">{{ item.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Navigation Buttons - Hidden by default, shown on hover -->
+        <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dark-card/80 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/90"></div>
+        <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dark-card/80 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/90"></div>
+        
+        <!-- Pagination -->
+        <div class="swiper-pagination mt-6"></div>
+    </div>
+</div>
+
+<!-- Initialize Swiper -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            centeredSlides: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                    centeredSlides: true
+                },
+                768: {
+                    slidesPerView: 2,
+                    centeredSlides: false
+                },
+                1024: {
+                    slidesPerView: 3,
+                    centeredSlides: false
+                },
+            },
+            on: {
+                init: function() {
+                    // Force update after initialization to fix any layout issues
+                    this.update();
+                }
+            }
+        });
+    });
+</script>
+
+<!-- Custom Styles for Swiper -->
+<style>
+.swiper-button-next,
+.swiper-button-prev {
+    color: #ffd700 !important;
+    width: 40px !important;
+    height: 40px !important;
+    margin-top: -20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    transform: scale(1.1);
+}
+
+.swiper-pagination-bullet {
+    background: #4b5563 !important;
+    opacity: 0.7 !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: #ffd700 !important;
+    opacity: 1 !important;
+}
+
+.swiper-slide {
+    height: auto;
+    padding: 20px 0;
+}
+
+.swiper-container {
+    padding: 20px 0;
+}
+</style>
+{% endif %}
